@@ -46,4 +46,14 @@ public class SaturationSystem : MonoBehaviour
             // Ќапример, смерть игрока или снижение скорости
         }
     }
+
+    public void DecreaseExternally(float amount)
+    {
+        saturationSlider.value = Mathf.Max(0, saturationSlider.value - amount);
+    }
+    public float GetSaturation()
+    {
+        return saturationSlider.value;
+    }
+
 }
