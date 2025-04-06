@@ -1,17 +1,17 @@
 using UnityEngine;
 
-public class HeatItem : MonoBehaviour
+public class HeatItem : PickItem
 {
-    private void OnTriggerEnter(Collider other)
+    protected override void OnPickedUp()
     {
-        if (other.CompareTag("Player"))
+        base.OnPickedUp(); // Удалит объект и сбросит активный item
+
+        HeatSystem heatSystem = FindObjectOfType<HeatSystem>();
+        if (heatSystem != null)
         {
-            HeatSystem heatSystem = FindObjectOfType<HeatSystem>();
-            if (heatSystem != null)
-            {
-                heatSystem.OnHeatItemPicked();
-                Destroy(gameObject);
-            }
+            float restoreAmount = Random.Range(5f, 35f);
+            heatSystem.ChangeHeat(restoreAmount);
+            Debug.Log($"Тепло увеличено на {restoreAmount}%");
         }
     }
 }

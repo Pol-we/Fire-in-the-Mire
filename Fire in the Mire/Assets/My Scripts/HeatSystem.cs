@@ -1,84 +1,97 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 
 public class HeatSystem : MonoBehaviour
 {
-    public float heatPercent = 100f;
-    private float heatDecreaseInterval = 25f;
-    private float saturationDecreaseInterval = 25f;
-    private float startTimeThreshold = 60f;
+    public static HeatSystem Instance;
 
-    private float nextDecreaseTime;
-    private PlayerController playerController;
-    private SaturationSystem saturationSystem;
-
+    public float CurrentHeat { get; private set; } = 100f;
+    private float timer = 0f;
+    private bool decayStarted = false;
+    private float decayInterval = 1f;
+    private float nextDecayTime = 0f;
     public bool nearCamin = false;
 
-    private void Start()
+
+    private void Awake()
     {
-        nextDecreaseTime = Time.time + startTimeThreshold + heatDecreaseInterval;
-        playerController = FindObjectOfType<PlayerController>();
-        saturationSystem = FindObjectOfType<SaturationSystem>();
-        StartCoroutine(HeaterRespawnRoutine());
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
     }
 
     private void Update()
     {
-        if (Time.time >= nextDecreaseTime)
+        timer += Time.deltaTime;
+
+        // Начинаем убывание через 1.5 минуты
+        if (!decayStarted && timer >= 90f)
         {
-            if (!nearCamin)
-                ChangeHeat(-1f);
-
-            if (saturationSystem != null)
-                saturationSystem.DecreaseExternally(1f); // доступный внешний метод
-
-            nextDecreaseTime = Time.time + heatDecreaseInterval;
+            decayStarted = true;
+            nextDecayTime = Time.time + decayInterval;
         }
 
-        if (heatPercent <= 40f && playerController != null)
+        // Каждую секунду убываем на 1%
+        if (decayStarted && Time.time >= nextDecayTime)
         {
-            playerController._speedPl = 0.9f;
+            DecreaseHeat(1);
+            nextDecayTime = Time.time + decayInterval;
         }
 
-        if (heatPercent <= 0 || (saturationSystem != null && saturationSystem.GetSaturation() <= 0))
+        // Снижаем скорость игрока при 40%
+        if (PlayerController.Instance != null)
         {
-            Debug.Log("Игра окончена: Один из параметров достиг 0%");
-            Time.timeScale = 0;
+            PlayerController.Instance.SetSpeedMultiplier(CurrentHeat <= 40f ? 0.9f : 1f);
         }
-    }
 
-    public void ChangeHeat(float amount)
-    {
-        heatPercent = Mathf.Clamp(heatPercent + amount, 0, 100);
-    }
-
-    // Вызов при соприкосновении с предметами (дрова, свечи и т.д.)
-    public void OnHeatItemPicked()
-    {
-        float restore = Random.Range(5f, 35f);
-        ChangeHeat(restore);
-        Debug.Log($"Тепло увеличено на {restore}%");
-    }
-
-    private IEnumerator HeaterRespawnRoutine()
-    {
-        while (true)
+        // Конец игры
+        if (CurrentHeat <= 0)
         {
-            yield return new WaitForSeconds(40f);
-            RespawnHeaterItems(); // здесь можно активировать/респавнить предметы
+            EndGame();
         }
     }
 
-    private void RespawnHeaterItems()
+    public void AddHeat(int amount)
     {
-        // Здесь логика появления новых подогревающих предметов
-        Debug.Log("Респавн предметов тепла");
+        CurrentHeat = Mathf.Clamp(CurrentHeat + amount, 0f, 100f);
+        Debug.Log("Тепло увеличено: " + amount + "%. Сейчас: " + CurrentHeat + "%");
     }
+
+    public void DecreaseHeat(int amount)
+    {
+        CurrentHeat = Mathf.Clamp(CurrentHeat - amount, 0f, 100f);
+        Debug.Log($"Тепло уменьшено на {amount}%. Текущее: {CurrentHeat}%");
+
+        if (CurrentHeat <= 40f)
+        {
+            PlayerController.Instance?.SetSpeedMultiplier(0.9f);
+        }
+        else
+        {
+            PlayerController.Instance?.SetSpeedMultiplier(1f);
+        }
+
+        if (CurrentHeat <= 0)
+        {
+            EndGame();
+        }
+    }
+
 
     public float GetHeat()
     {
-        return heatPercent;
+        return CurrentHeat;
+    }
+
+    public void ChangeHeat(float addHeat)
+    {
+        CurrentHeat += addHeat;
+    }
+
+    private void EndGame()
+    {
+        Debug.Log("Игра окончена. Вы замёрзли.");
+        Time.timeScale = 0;
+        TextManager.Instance?.ShowMessage("Вы замёрзли. Конец игры.");
     }
 }

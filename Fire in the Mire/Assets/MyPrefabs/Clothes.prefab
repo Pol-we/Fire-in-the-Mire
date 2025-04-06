@@ -12,9 +12,11 @@ GameObject:
   - component: {fileID: 4713078227479650643}
   - component: {fileID: 7574269669024010515}
   - component: {fileID: 4603976273482736977}
+  - component: {fileID: 4688233161889268375}
+  - component: {fileID: 1539802412710526555}
   m_Layer: 0
   m_Name: Clothes
-  m_TagString: Untagged
+  m_TagString: Fire
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,9 +101,33 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 2.001264, y: 11.41231, z: 1.5025127}
   m_Center: {x: -0.50063235, y: -0.6260014, z: 0.022842214}
+--- !u!114 &4688233161889268375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5243211138487066978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058a6d050b3ded74291968923cf15d40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1539802412710526555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5243211138487066978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee9981a66f3214e43800e61f4ca3e873, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

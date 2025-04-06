@@ -1,29 +1,18 @@
-using UnityEngine.InputSystem;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PickItem : MonoBehaviour
 {
     private static PickItem _currentActiveItem;
-    private FloatingText floatingText;
-
-    private void Start()
-    {
-        // Получаем ссылку на компонент FloatingText, если он есть на объекте
-        floatingText = GetComponent<FloatingText>();
-    }
 
     private void Update()
     {
         if (Keyboard.current.eKey.wasPressedThisFrame && _currentActiveItem != null)
         {
-            // Скрываем текст перед удалением
-            if (_currentActiveItem.floatingText != null)
-            {
-                _currentActiveItem.floatingText.HideText();
-            }
-
-            Destroy(_currentActiveItem.gameObject);
-            _currentActiveItem = null;
+            SaturationSystem.Instance?.AddSaturation(Random.Range(5, 36));
+            TextManager.Instance?.ShowMessage("Вы поели. Насыщение +...");
+            TextManager.Instance?.HideMessage(); // <-- скрываем текст сразу
+            Destroy(gameObject); // если нужно удалить объект
         }
     }
 
@@ -41,5 +30,12 @@ public class PickItem : MonoBehaviour
         {
             _currentActiveItem = null;
         }
+    }
+
+    // Позволяет потомкам переопределять поведение
+    protected virtual void OnPickedUp()
+    {
+        Destroy(gameObject);
+        _currentActiveItem = null;
     }
 }

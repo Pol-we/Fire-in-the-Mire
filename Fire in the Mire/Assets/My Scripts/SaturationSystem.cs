@@ -1,59 +1,55 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SaturationSystem : MonoBehaviour
 {
-    public Slider saturationSlider;
-    public float startDelay = 90f; // 1.5 минуты = 90 секунд
-    public float decreaseInterval = 1f; // интервал уменьшения (сек)
-    public float decreaseAmount = 1f;   // сколько убавляется за раз
+    public static SaturationSystem Instance;
 
-    private float timer;
-    private float nextDecreaseTime;
-    private bool decreasing = false;
+    public float CurrentSaturation { get; private set; } = 100f;
 
-    private void Start()
+    private void Awake()
     {
-        saturationSlider.value = saturationSlider.maxValue;
-        timer = 0f;
-        nextDecreaseTime = startDelay + decreaseInterval;
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
     }
 
     private void Update()
     {
-        timer += Time.deltaTime;
-
-        if (!decreasing && timer >= startDelay)
+        // Замедление при 40% и ниже
+        if (PlayerController.Instance != null)
         {
-            decreasing = true;
+            PlayerController.Instance.SetSpeedMultiplier(CurrentSaturation <= 40f ? 0.9f : 1f);
         }
 
-        if (decreasing && timer >= nextDecreaseTime)
+        // Завершение игры
+        if (CurrentSaturation <= 0)
         {
-            DecreaseSaturation();
-            nextDecreaseTime += decreaseInterval;
-        }
-    }
-
-    private void DecreaseSaturation()
-    {
-        saturationSlider.value = Mathf.Max(0, saturationSlider.value - decreaseAmount);
-
-        // Здесь можно добавить действия при нуле
-        if (saturationSlider.value <= 0)
-        {
-            Debug.Log("Сытость на нуле!");
-            // Например, смерть игрока или снижение скорости
+            EndGame();
         }
     }
 
-    public void DecreaseExternally(float amount)
+    public void AddSaturation(float amount)
     {
-        saturationSlider.value = Mathf.Max(0, saturationSlider.value - amount);
+        CurrentSaturation = Mathf.Clamp(CurrentSaturation + amount, 0f, 100f);
+        Debug.Log($"Насыщение увеличено на {amount}%. Текущее: {CurrentSaturation}%");
     }
-    public float GetSaturation()
+
+    public void DecreaseSaturation(float amount)
     {
-        return saturationSlider.value;
+        CurrentSaturation = Mathf.Clamp(CurrentSaturation - amount, 0f, 100f);
+        Debug.Log($"Насыщение уменьшено на {amount}%. Текущее: {CurrentSaturation}%");
+    }
+
+    private void EndGame()
+    {
+        Debug.Log("Игра окончена. Голод победил.");
+        Time.timeScale = 0;
+        TextManager.Instance?.ShowMessage("Вы истощены. Конец игры.");
+    }
+    public void IncreaseSaturation(float amount)
+    {
+        AddSaturation(amount);
     }
 
 }

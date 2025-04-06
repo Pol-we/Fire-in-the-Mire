@@ -2,27 +2,39 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public CharacterController _controller;
-    public float _speedPl = 1;
-    public float _rotationSpeed = 120;
+    public static PlayerController Instance;
 
+    public CharacterController _controller;
+    public float _speedPl = 1f;
+    public float _rotationSpeed = 120f;
+
+    private float speedMultiplier = 1f;
     private Vector3 rotation;
 
-    public void Start()
+    private void Awake()
     {
-
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
     }
 
-    public void Update()
+    private void Update()
     {
         if (Time.timeScale == 1)
         {
-            this.rotation = new Vector3(0, Input.GetAxisRaw("Horizontal") * _rotationSpeed * Time.deltaTime, 0);
+            rotation = new Vector3(0, Input.GetAxisRaw("Horizontal") * _rotationSpeed * Time.deltaTime, 0);
 
             Vector3 move = new Vector3(0, 0, Input.GetAxisRaw("Vertical") * Time.deltaTime);
-            move = this.transform.TransformDirection(move);
-            _controller.Move(move * _speedPl);
-            this.transform.Rotate(this.rotation);
+            move = transform.TransformDirection(move);
+            _controller.Move(move * _speedPl * speedMultiplier);
+
+            transform.Rotate(rotation);
         }
+    }
+
+    public void SetSpeedMultiplier(float multiplier)
+    {
+        speedMultiplier = multiplier;
     }
 }
