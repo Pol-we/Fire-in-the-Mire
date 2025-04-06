@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -9,7 +7,6 @@ public class PlayerController : MonoBehaviour
     public float _rotationSpeed = 120;
 
     private Vector3 rotation;
-
 
     public void Start()
     {
@@ -26,11 +23,6 @@ public class PlayerController : MonoBehaviour
             move = this.transform.TransformDirection(move);
             _controller.Move(move * _speedPl);
             this.transform.Rotate(this.rotation);
-
-            
         }
-
     }
-
-
 }
