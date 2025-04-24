@@ -2,11 +2,15 @@ using UnityEngine;
 
 public class HeatItem : PickItem
 {
+    public int randomHeat;
     public override void Interact()
     {
-        Debug.Log("+10 Heat");
+        randomHeat = Random.Range(5, 36);
+        TextManager.Instance?.HideMessage();
 
-        HeatSystem.Instance?.AddHeat(Random.Range(5, 36));
+        HeatSystem.Instance?.AddHeat(randomHeat);
+
+        TextManager.Instance?.ShowMessage($"Вы согрелись. Тепло + {randomHeat}", 2f);
 
         gameObject.SetActive(false);
 

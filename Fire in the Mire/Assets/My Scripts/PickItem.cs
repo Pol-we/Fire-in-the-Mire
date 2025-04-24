@@ -16,7 +16,7 @@ public class PickItem : MonoBehaviour
     public virtual void Interact()
     {
         // Скрываем текст
-        Debug.Log("+10 Eat");
+        TextManager.Instance?.HideMessage();
 
         // Отключаем объект, но не удаляем
         gameObject.SetActive(false);
@@ -30,6 +30,7 @@ public class PickItem : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             _currentActiveItem = this;
+            TextManager.Instance?.ShowMessage("Нажмите E для взаимодействия");
         }
     }
 
@@ -37,6 +38,7 @@ public class PickItem : MonoBehaviour
     {
         if (other.CompareTag("Player") && _currentActiveItem == this)
         {
+            TextManager.Instance?.HideMessage();
             _currentActiveItem = null;
         }
     }

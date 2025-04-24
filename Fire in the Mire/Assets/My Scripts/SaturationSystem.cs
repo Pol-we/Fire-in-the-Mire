@@ -30,18 +30,18 @@ public class SaturationSystem : MonoBehaviour
     public void AddSaturation(float amount)
     {
         CurrentSaturation = Mathf.Clamp(CurrentSaturation + amount, 0f, 100f);
-        Debug.Log($"Насыщение +{amount}%. Сейчас: {CurrentSaturation}%");
+        TextManager.Instance?.ShowMessage($"Насыщение +{amount}%. Сейчас: {CurrentSaturation}%");
     }
 
     public void DecreaseSaturation(float amount)
     {
         CurrentSaturation = Mathf.Clamp(CurrentSaturation - amount, 0f, 100f);
-        Debug.Log($"Насыщение -{amount}%. Сейчас: {CurrentSaturation}%");
+        TextManager.Instance?.ShowMessage($"Насыщение -{amount}%. Сейчас: {CurrentSaturation}%");
     }
 
     private void EndGame()
     {
-        Debug.Log("Вы истощены. Конец игры.");
+        TextManager.Instance?.ShowMessage("Вы истощены. Конец игры.");
         Time.timeScale = 0;
     }
 

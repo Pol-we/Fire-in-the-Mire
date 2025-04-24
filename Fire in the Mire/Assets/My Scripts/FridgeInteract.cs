@@ -1,19 +1,29 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class FridgeInteract : MonoBehaviour
 {
-    private bool playerInZone = false;
+    public GameObject[] foodItems; // Присвой сюда 4 еды в инспекторе
+    private bool playerInRange = false;
+    private int currentFoodIndex = 0;
 
     private void Update()
     {
-        if (playerInZone && Input.GetKeyDown(KeyCode.E))
+        if (playerInRange && Keyboard.current.eKey.wasPressedThisFrame)
         {
-            SaturationSystem saturation = FindObjectOfType<SaturationSystem>();
-            if (saturation != null)
+            if (currentFoodIndex < foodItems.Length)
             {
-                float restore = Random.Range(10f, 40f);
-                saturation.IncreaseSaturation(restore);
-                Debug.Log("Взаимодействие с холодильником");
+                GameObject food = foodItems[currentFoodIndex];
+                EatItem eatItem = food.GetComponent<EatItem>();
+                if (eatItem != null)
+                {
+                    eatItem.EatFromFridge(); // специальный метод для холодильника
+                }
+                currentFoodIndex++;
+            }
+            else
+            {
+                TextManager.Instance?.ShowMessage("Холодильник пуст.");
             }
         }
     }
@@ -21,12 +31,18 @@ public class FridgeInteract : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
-            playerInZone = true;
+        {
+            playerInRange = true;
+            TextManager.Instance?.ShowMessage("Нажмите E, чтобы взять еду из холодильника");
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
-            playerInZone = false;
+        {
+            playerInRange = false;
+            TextManager.Instance?.HideMessage();
+        }
     }
 }

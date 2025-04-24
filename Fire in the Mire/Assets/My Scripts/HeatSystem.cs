@@ -49,13 +49,13 @@ public class HeatSystem : MonoBehaviour
     public void AddHeat(int amount)
     {
         CurrentHeat = Mathf.Clamp(CurrentHeat + amount, 0f, 100f);
-        Debug.Log($"Тепло +{amount}%. Сейчас: {CurrentHeat}%");
+        TextManager.Instance?.ShowMessage($"Тепло +{amount}%. Сейчас: {CurrentHeat}%");
     }
 
     public void DecreaseHeat(int amount)
     {
         CurrentHeat = Mathf.Clamp(CurrentHeat - amount, 0f, 100f);
-        Debug.Log($"Тепло -{amount}%. Сейчас: {CurrentHeat}%");
+        TextManager.Instance?.ShowMessage($"Тепло -{amount}%. Сейчас: {CurrentHeat}%");
 
         PlayerController.Instance?.SetSpeedMultiplier(CurrentHeat <= 40f ? 0.9f : 1f);
 
@@ -77,7 +77,7 @@ public class HeatSystem : MonoBehaviour
 
     private void EndGame()
     {
-        Debug.Log("Вы замёрзли. Конец игры.");
+        TextManager.Instance?.ShowMessage("Вы замёрзли. Конец игры.");
         Time.timeScale = 0;
     }
 }
