@@ -15,7 +15,6 @@ public class FireInteract : MonoBehaviour
         // Взаимодействие по кнопке E
         if (playerNear && Keyboard.current.eKey.wasPressedThisFrame)
         {
-            TextManager.Instance?.HideMessage();
             // Дополнительные действия, если нужно
         }
 
@@ -48,7 +47,7 @@ public class FireInteract : MonoBehaviour
     {
         Debug.Log("Игра окончена: один из показателей достиг 0%");
         Time.timeScale = 0;
-        TextManager.Instance?.ShowMessage("Вы погибли. Все силы иссякли.");
+        Debug.Log("Вы погибли. Все силы иссякли.");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -56,7 +55,7 @@ public class FireInteract : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerNear = true;
-            TextManager.Instance?.ShowMessage("Вы подошли к камину.");
+            Debug.Log("Вы подошли к камину.");
         }
     }
 
@@ -65,7 +64,6 @@ public class FireInteract : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerNear = false;
-            TextManager.Instance?.HideMessage();
         }
     }
 }

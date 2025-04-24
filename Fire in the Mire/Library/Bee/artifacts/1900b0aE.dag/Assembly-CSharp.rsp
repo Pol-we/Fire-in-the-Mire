@@ -359,15 +359,15 @@
 "Assets/My Scripts/CountdownTimer.cs"
 "Assets/My Scripts/EatItem.cs"
 "Assets/My Scripts/FireInteract.cs"
-"Assets/My Scripts/FloatingText.cs"
 "Assets/My Scripts/FridgeInteract.cs"
 "Assets/My Scripts/HeatItem.cs"
 "Assets/My Scripts/HeatSystem.cs"
 "Assets/My Scripts/LookAtCamera.cs"
 "Assets/My Scripts/PickItem.cs"
 "Assets/My Scripts/PlayerController.cs"
+"Assets/My Scripts/PlayerInteraction.cs"
 "Assets/My Scripts/SaturationSystem.cs"
-"Assets/My Scripts/TextManager.cs"
+"Assets/My Scripts/TipsManager.cs"
 -langversion:9.0
 /deterministic
 /optimize+

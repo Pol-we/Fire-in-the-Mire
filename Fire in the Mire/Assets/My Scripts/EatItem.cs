@@ -2,26 +2,15 @@ using UnityEngine;
 
 public class EatItem : PickItem
 {
-    protected override void OnPickedUp()
+    public override void Interact()
     {
-        base.OnPickedUp();
+        Debug.Log("+10 Eat");
 
-        SaturationSystem saturationSystem = FindObjectOfType<SaturationSystem>();
-        if (saturationSystem != null)
-        {
-            int restore = Random.Range(5, 36); // Целое значение от 5 до 35
-            saturationSystem.AddSaturation(restore);
+        SaturationSystem.Instance?.AddSaturation(Random.Range(5, 36));
 
-            if (TextManager.Instance != null)
-            {
-                TextManager.Instance.ShowMessage("Вы подобрали еду: +" + restore + "% насыщения");
-                Invoke(nameof(HideText), 2f); // Скрыть через 2 секунды
-            }
-        }
-    }
+        gameObject.SetActive(false);
 
-    private void HideText()
-    {
-        TextManager.Instance?.HideMessage();
+        if (_currentActiveItem == this)
+            _currentActiveItem = null;
     }
 }

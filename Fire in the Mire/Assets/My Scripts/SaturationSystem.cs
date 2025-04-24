@@ -16,13 +16,11 @@ public class SaturationSystem : MonoBehaviour
 
     private void Update()
     {
-        // Замедление при 40% и ниже
         if (PlayerController.Instance != null)
         {
             PlayerController.Instance.SetSpeedMultiplier(CurrentSaturation <= 40f ? 0.9f : 1f);
         }
 
-        // Завершение игры
         if (CurrentSaturation <= 0)
         {
             EndGame();
@@ -32,24 +30,23 @@ public class SaturationSystem : MonoBehaviour
     public void AddSaturation(float amount)
     {
         CurrentSaturation = Mathf.Clamp(CurrentSaturation + amount, 0f, 100f);
-        Debug.Log($"Насыщение увеличено на {amount}%. Текущее: {CurrentSaturation}%");
+        Debug.Log($"Насыщение +{amount}%. Сейчас: {CurrentSaturation}%");
     }
 
     public void DecreaseSaturation(float amount)
     {
         CurrentSaturation = Mathf.Clamp(CurrentSaturation - amount, 0f, 100f);
-        Debug.Log($"Насыщение уменьшено на {amount}%. Текущее: {CurrentSaturation}%");
+        Debug.Log($"Насыщение -{amount}%. Сейчас: {CurrentSaturation}%");
     }
 
     private void EndGame()
     {
-        Debug.Log("Игра окончена. Голод победил.");
+        Debug.Log("Вы истощены. Конец игры.");
         Time.timeScale = 0;
-        TextManager.Instance?.ShowMessage("Вы истощены. Конец игры.");
     }
+
     public void IncreaseSaturation(float amount)
     {
         AddSaturation(amount);
     }
-
 }

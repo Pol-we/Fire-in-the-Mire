@@ -11,7 +11,6 @@ public class HeatSystem : MonoBehaviour
     private float nextDecayTime = 0f;
     public bool nearCamin = false;
 
-
     private void Awake()
     {
         if (Instance == null)
@@ -24,27 +23,23 @@ public class HeatSystem : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        // Начинаем убывание через 1.5 минуты
         if (!decayStarted && timer >= 90f)
         {
             decayStarted = true;
             nextDecayTime = Time.time + decayInterval;
         }
 
-        // Каждую секунду убываем на 1%
         if (decayStarted && Time.time >= nextDecayTime)
         {
             DecreaseHeat(1);
             nextDecayTime = Time.time + decayInterval;
         }
 
-        // Снижаем скорость игрока при 40%
         if (PlayerController.Instance != null)
         {
             PlayerController.Instance.SetSpeedMultiplier(CurrentHeat <= 40f ? 0.9f : 1f);
         }
 
-        // Конец игры
         if (CurrentHeat <= 0)
         {
             EndGame();
@@ -54,29 +49,21 @@ public class HeatSystem : MonoBehaviour
     public void AddHeat(int amount)
     {
         CurrentHeat = Mathf.Clamp(CurrentHeat + amount, 0f, 100f);
-        Debug.Log("Тепло увеличено: " + amount + "%. Сейчас: " + CurrentHeat + "%");
+        Debug.Log($"Тепло +{amount}%. Сейчас: {CurrentHeat}%");
     }
 
     public void DecreaseHeat(int amount)
     {
         CurrentHeat = Mathf.Clamp(CurrentHeat - amount, 0f, 100f);
-        Debug.Log($"Тепло уменьшено на {amount}%. Текущее: {CurrentHeat}%");
+        Debug.Log($"Тепло -{amount}%. Сейчас: {CurrentHeat}%");
 
-        if (CurrentHeat <= 40f)
-        {
-            PlayerController.Instance?.SetSpeedMultiplier(0.9f);
-        }
-        else
-        {
-            PlayerController.Instance?.SetSpeedMultiplier(1f);
-        }
+        PlayerController.Instance?.SetSpeedMultiplier(CurrentHeat <= 40f ? 0.9f : 1f);
 
         if (CurrentHeat <= 0)
         {
             EndGame();
         }
     }
-
 
     public float GetHeat()
     {
@@ -90,8 +77,7 @@ public class HeatSystem : MonoBehaviour
 
     private void EndGame()
     {
-        Debug.Log("Игра окончена. Вы замёрзли.");
+        Debug.Log("Вы замёрзли. Конец игры.");
         Time.timeScale = 0;
-        TextManager.Instance?.ShowMessage("Вы замёрзли. Конец игры.");
     }
 }

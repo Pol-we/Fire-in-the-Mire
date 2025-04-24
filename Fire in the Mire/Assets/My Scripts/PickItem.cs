@@ -3,17 +3,26 @@ using UnityEngine.InputSystem;
 
 public class PickItem : MonoBehaviour
 {
-    private static PickItem _currentActiveItem;
+    protected static PickItem _currentActiveItem;
 
-    private void Update()
+    protected virtual void Update()
     {
-        if (Keyboard.current.eKey.wasPressedThisFrame && _currentActiveItem != null)
+        if (_currentActiveItem == this && Keyboard.current.eKey.wasPressedThisFrame)
         {
-            SaturationSystem.Instance?.AddSaturation(Random.Range(5, 36));
-            TextManager.Instance?.ShowMessage("Вы поели. Насыщение +...");
-            TextManager.Instance?.HideMessage(); // <-- скрываем текст сразу
-            Destroy(gameObject); // если нужно удалить объект
+            Interact();
         }
+    }
+
+    public virtual void Interact()
+    {
+        // Скрываем текст
+        Debug.Log("+10 Eat");
+
+        // Отключаем объект, но не удаляем
+        gameObject.SetActive(false);
+
+        if (_currentActiveItem == this)
+            _currentActiveItem = null;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -30,12 +39,5 @@ public class PickItem : MonoBehaviour
         {
             _currentActiveItem = null;
         }
-    }
-
-    // Позволяет потомкам переопределять поведение
-    protected virtual void OnPickedUp()
-    {
-        Destroy(gameObject);
-        _currentActiveItem = null;
     }
 }
