@@ -44,6 +44,14 @@ public class WorldTemperatureSystem : MonoBehaviour
         ApplySpeedModifier();
     }
 
+    public void AdjustTemperature(float amount)
+    {
+        currentTemperature += amount;
+        currentTemperature = Mathf.Clamp(currentTemperature, -50f, 50f); // сохраняем в пределах
+        UpdateTemperatureUI();
+        ApplySpeedModifier();
+    }
+
     private void UpdateTemperatureUI()
     {
         if (temperatureText != null)

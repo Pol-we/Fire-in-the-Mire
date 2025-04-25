@@ -23,7 +23,7 @@ public class HeatSystem : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (!decayStarted && timer >= 90f)
+        if (!decayStarted && timer >= 60f)
         {
             decayStarted = true;
             nextDecayTime = Time.time + decayInterval;
@@ -37,7 +37,12 @@ public class HeatSystem : MonoBehaviour
 
         if (PlayerController.Instance != null)
         {
-            PlayerController.Instance.SetSpeedMultiplier(CurrentHeat <= 40f ? 0.9f : 1f);
+            if (CurrentHeat < -30f)
+                PlayerController.Instance.SetSpeedMultiplier(0.95f);
+            else if (CurrentHeat > 20f)
+                PlayerController.Instance.SetSpeedMultiplier(1.15f);
+            else
+                PlayerController.Instance.SetSpeedMultiplier(1f);
         }
 
         if (CurrentHeat <= 0)
@@ -49,15 +54,13 @@ public class HeatSystem : MonoBehaviour
     public void AddHeat(int amount)
     {
         CurrentHeat = Mathf.Clamp(CurrentHeat + amount, 0f, 100f);
-        TextManager.Instance?.ShowMessage($"Тепло +{amount}%. Сейчас: {CurrentHeat}%");
+        //TextManager.Instance?.ShowMessage($"Тепло +{amount}%. Сейчас: {CurrentHeat}%");
     }
 
     public void DecreaseHeat(int amount)
     {
         CurrentHeat = Mathf.Clamp(CurrentHeat - amount, 0f, 100f);
-        TextManager.Instance?.ShowMessage($"Тепло -{amount}%. Сейчас: {CurrentHeat}%");
-
-        PlayerController.Instance?.SetSpeedMultiplier(CurrentHeat <= 40f ? 0.9f : 1f);
+        //TextManager.Instance?.ShowMessage($"Тепло -{amount}%. Сейчас: {CurrentHeat}%");
 
         if (CurrentHeat <= 0)
         {
@@ -72,7 +75,7 @@ public class HeatSystem : MonoBehaviour
 
     public void ChangeHeat(float addHeat)
     {
-        CurrentHeat += addHeat;
+        CurrentHeat = Mathf.Clamp(CurrentHeat + addHeat, 0f, 100f);
     }
 
     private void EndGame()
