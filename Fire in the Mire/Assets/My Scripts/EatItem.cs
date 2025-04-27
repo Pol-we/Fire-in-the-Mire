@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class EatItem : PickItem
 {
+    public AudioClip eatSound;
     public int randomSaturation;
     public override void Interact()
     {
@@ -26,7 +27,9 @@ public class EatItem : PickItem
 
         TextManager.Instance?.HideMessage();
 
+        AudioSource.PlayClipAtPoint(eatSound, transform.position);
         SaturationSystem.Instance?.AddSaturation(randomSaturation);
-        TextManager.Instance?.ShowMessage($"Вы поели. Насыщение + {randomSaturation}", 2f);
+        TextManager.Instance?.ShowMessage($"You ate. Satiety + {randomSaturation}", 2f);
+
     }
 }

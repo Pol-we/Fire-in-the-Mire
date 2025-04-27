@@ -30,7 +30,7 @@ public class PickItem : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             _currentActiveItem = this;
-            TextManager.Instance?.ShowMessage("Нажмите E для взаимодействия");
+            TextManager.Instance?.ShowMessage("Press E to interact.");
         }
     }
 

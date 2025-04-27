@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class HeatItem : PickItem
 {
+    public AudioClip heatSound;
     public int randomHeat;
     public override void Interact()
     {
@@ -10,7 +11,9 @@ public class HeatItem : PickItem
 
         HeatSystem.Instance?.AddHeat(randomHeat);
 
-        TextManager.Instance?.ShowMessage($"Вы согрелись. Тепло + {randomHeat}", 2f);
+        AudioSource.PlayClipAtPoint(heatSound, transform.position);
+
+        TextManager.Instance?.ShowMessage($"You warmed up. Warmth + {randomHeat}", 2f);
 
         gameObject.SetActive(false);
 

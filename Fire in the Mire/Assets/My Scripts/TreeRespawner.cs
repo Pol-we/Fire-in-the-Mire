@@ -43,6 +43,6 @@ public class TreeRespawner : MonoBehaviour
         }
 
         Instantiate(treePrefab, spawnPoint.position, spawnPoint.rotation);
-        TextManager.Instance?.ShowMessage("Появилось новое дерево.");
+        TextManager.Instance?.ShowMessage("A tree has appeared somewhere...");
     }
 }

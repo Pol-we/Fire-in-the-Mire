@@ -36,19 +36,19 @@ public class RandomEventSystem : MonoBehaviour
             case 0:
                 int heatLoss = Random.Range(1, 6);
                 HeatSystem.Instance?.DecreaseHeat(heatLoss);
-                TextManager.Instance?.ShowMessage($"Проник холод. Тепло -{heatLoss}%", 2f);
+                TextManager.Instance?.ShowMessage($"The audience is unhappy! Warmth -{heatLoss}%", 2f);
                 break;
 
             case 1:
                 float tempDrop = Random.Range(-3f, -1f);
                 WorldTemperatureSystem.Instance?.AdjustTemperature(tempDrop);
-                TextManager.Instance?.ShowMessage($"Похолодание: температура {tempDrop}°C", 2f);
+                TextManager.Instance?.ShowMessage($"The audience is unhappy! Temperature {tempDrop}°C", 2f);
                 break;
 
             case 2:
                 int foodCount = Random.Range(1, 3);
                 fridge.AddRandomFood(foodCount); // тут ты должен реализовать добавление еды в холодильник
-                TextManager.Instance?.ShowMessage($"Вы нашли еду! +{foodCount} шт.", 2f);
+                TextManager.Instance?.ShowMessage($"The audience rewarded you with food!", 2f);
                 break;
         }
     }

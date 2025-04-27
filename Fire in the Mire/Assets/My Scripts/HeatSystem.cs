@@ -80,7 +80,7 @@ public class HeatSystem : MonoBehaviour
 
     private void EndGame()
     {
-        TextManager.Instance?.ShowMessage("Вы замёрзли. Конец игры.");
+        TextManager.Instance?.ShowMessage("You froze. Game over.");
         Time.timeScale = 0;
     }
 }

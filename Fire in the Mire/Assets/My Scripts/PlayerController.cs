@@ -5,10 +5,11 @@ public class PlayerController : MonoBehaviour
     public static PlayerController Instance;
 
     public CharacterController _controller;
-    public float _speedPl = 1f;
-    public float _rotationSpeed = 120f;
+    public float _speedPl = 2f;
+    public float _rotationSpeed = 160f;
+    public float speedPlayer;
 
-    private float speedMultiplier = 1f;
+    public float speedMultiplier = 1f;
     private Vector3 rotation;
 
     private void Awake()
@@ -27,11 +28,17 @@ public class PlayerController : MonoBehaviour
 
             Vector3 move = new Vector3(0, 0, Input.GetAxisRaw("Vertical") * Time.deltaTime);
             move = transform.TransformDirection(move);
-            _controller.Move(move * _speedPl * speedMultiplier);
+            speedPlayer = _speedPl * speedMultiplier;
+
+            if (Input.GetAxisRaw("Vertical") != 0)
+                Debug.Log($"Скорость игрока: {speedPlayer}");
+
+            _controller.Move(move * speedPlayer);
 
             transform.Rotate(rotation);
         }
     }
+
 
     public void SetSpeedMultiplier(float multiplier)
     {

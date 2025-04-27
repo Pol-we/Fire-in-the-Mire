@@ -83,7 +83,7 @@ public class SaturationSystem : MonoBehaviour
 
     private void EndGame()
     {
-        TextManager.Instance?.ShowMessage("Вы истощены. Конец игры.");
+        TextManager.Instance?.ShowMessage("You are exhausted. Game over.");
         Time.timeScale = 0;
     }
 }

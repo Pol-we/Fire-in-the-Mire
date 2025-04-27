@@ -29,11 +29,11 @@ public class FridgeInteract : MonoBehaviour
         if (added > 0)
         {
             currentFoodIndex = 0;
-            TextManager.Instance?.ShowMessage($"Добавлено {added} еды в холодильник.");
+            TextManager.Instance?.ShowMessage($"Added {added} food to the fridge.");
         }
         else
         {
-            TextManager.Instance?.ShowMessage("В холодильнике больше нет места для еды!");
+            TextManager.Instance?.ShowMessage("There's no more space for food in the fridge!");
         }
     }
 
@@ -58,7 +58,7 @@ public class FridgeInteract : MonoBehaviour
             }
             else
             {
-                TextManager.Instance?.ShowMessage("Холодильник пуст.");
+                TextManager.Instance?.ShowMessage("The fridge is empty.");
             }
         }
     }
@@ -68,7 +68,7 @@ public class FridgeInteract : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = true;
-            TextManager.Instance?.ShowMessage("Нажмите E, чтобы взять еду из холодильника");
+            TextManager.Instance?.ShowMessage("Press E to take food from the fridge.");
         }
     }
 

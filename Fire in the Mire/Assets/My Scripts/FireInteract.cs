@@ -45,9 +45,9 @@ public class FireInteract : MonoBehaviour
 
     private void EndGame()
     {
-        Debug.Log("Игра окончена: один из показателей достиг 0%");
+        Debug.Log("Game over: one of the stats reached 0%.");
         Time.timeScale = 0;
-        Debug.Log("Вы погибли. Все силы иссякли.");
+        Debug.Log("You died. All energy depleted.");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -55,7 +55,7 @@ public class FireInteract : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerNear = true;
-            Debug.Log("Вы подошли к камину.");
+            Debug.Log("You approached the fireplace.");
         }
     }
 

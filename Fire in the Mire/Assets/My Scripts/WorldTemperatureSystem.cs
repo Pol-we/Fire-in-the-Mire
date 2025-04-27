@@ -7,8 +7,10 @@ public class WorldTemperatureSystem : MonoBehaviour
 
     public TMP_Text temperatureText; // перетащи сюда TextMeshPro из Canvas
     public float currentTemperature = -20f;
-    private float changeInterval = 35f;
+    private float changeInterval = 5f;
     private float nextChangeTime;
+    private float lastTemperatureChecked;
+
 
     private void Awake()
     {
@@ -22,7 +24,6 @@ public class WorldTemperatureSystem : MonoBehaviour
     {
         nextChangeTime = Time.time + changeInterval;
         UpdateTemperatureUI();
-        ApplySpeedModifier();
     }
 
     private void Update()
@@ -32,6 +33,13 @@ public class WorldTemperatureSystem : MonoBehaviour
             ChangeTemperature();
             nextChangeTime = Time.time + changeInterval;
         }
+
+        if (PlayerController.Instance != null && Mathf.Abs(currentTemperature - lastTemperatureChecked) > 0.1f)
+        {
+            ApplySpeedModifier();
+            lastTemperatureChecked = currentTemperature;
+        }
+
     }
 
     private void ChangeTemperature()
@@ -64,10 +72,10 @@ public class WorldTemperatureSystem : MonoBehaviour
     {
         if (PlayerController.Instance != null)
         {
-            if (currentTemperature < -30f)
-                PlayerController.Instance.SetSpeedMultiplier(0.95f);
-            else if (currentTemperature > 20f)
-                PlayerController.Instance.SetSpeedMultiplier(1.15f);
+            if (currentTemperature < -29f)
+                PlayerController.Instance.SetSpeedMultiplier(0.15f);
+            else if (currentTemperature > 19f)
+                PlayerController.Instance.SetSpeedMultiplier(88f);
             else
                 PlayerController.Instance.SetSpeedMultiplier(1f);
         }

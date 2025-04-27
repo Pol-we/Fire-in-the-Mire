@@ -25,7 +25,6 @@ public class CountdownTimer : MonoBehaviour
         else
         {
             timerText.text = "00:00";
-            // Здесь можно добавить вызов конца игры, сцены и т.д.
         }
     }
 }
