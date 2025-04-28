@@ -43,11 +43,6 @@ public class SaturationSystem : MonoBehaviour
             nextDecayTime = Time.time + decayInterval;
         }
 
-        if (PlayerController.Instance != null)
-        {
-            PlayerController.Instance.SetSpeedMultiplier(CurrentSaturation <= 40f ? 0.9f : 1f);
-        }
-
         UpdateSaturationSlider();
 
         if (CurrentSaturation <= 0)

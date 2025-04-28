@@ -39,7 +39,6 @@ public class FireInteract : MonoBehaviour
         {
             bool lowHeat = HeatSystem.Instance != null && HeatSystem.Instance.CurrentHeat <= 40;
             bool lowSat = SaturationSystem.Instance != null && SaturationSystem.Instance.CurrentSaturation <= 40;
-            PlayerController.Instance.SetSpeedMultiplier((lowHeat || lowSat) ? 0.9f : 1f);
         }
     }
 

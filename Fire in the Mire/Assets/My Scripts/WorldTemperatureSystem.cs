@@ -5,7 +5,7 @@ public class WorldTemperatureSystem : MonoBehaviour
 {
     public static WorldTemperatureSystem Instance;
 
-    public TMP_Text temperatureText; // перетащи сюда TextMeshPro из Canvas
+    public TMP_Text temperatureText;
     public float currentTemperature = -20f;
     private float changeInterval = 5f;
     private float nextChangeTime;
@@ -73,17 +73,17 @@ public class WorldTemperatureSystem : MonoBehaviour
         {
             if (currentTemperature < -30f)
             {
-                PlayerController.Instance.SetSpeedMultiplier(0.1f);
+                PlayerController.Instance._speedPl = 1.6f; // 2 * 0.8
                 Debug.Log("[WorldTemperatureSystem] Температура ниже -30°C. Установлена скорость 0.8x.");
             }
             else if (currentTemperature > 20f)
             {
-                PlayerController.Instance.SetSpeedMultiplier(99.2f);
+                PlayerController.Instance._speedPl = 2.4f; // 2 * 1.2
                 Debug.Log("[WorldTemperatureSystem] Температура выше 20°C. Установлена скорость 1.2x.");
             }
             else
             {
-                PlayerController.Instance.SetSpeedMultiplier(1f);
+                PlayerController.Instance._speedPl = 2.0f; // нормальная скорость
                 Debug.Log("[WorldTemperatureSystem] Нормальная температура. Скорость 1x.");
             }
         }
