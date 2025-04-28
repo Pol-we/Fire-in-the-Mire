@@ -35,15 +35,6 @@ public class HeatSystem : MonoBehaviour
             nextDecayTime = Time.time + decayInterval;
         }
 
-        if (PlayerController.Instance != null)
-        {
-            if (CurrentHeat < -30f)
-                PlayerController.Instance.SetSpeedMultiplier(0.95f);
-            else if (CurrentHeat > 20f)
-                PlayerController.Instance.SetSpeedMultiplier(1.15f);
-            else
-                PlayerController.Instance.SetSpeedMultiplier(1f);
-        }
 
         if (CurrentHeat <= 0)
         {

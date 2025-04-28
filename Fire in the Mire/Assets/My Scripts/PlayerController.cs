@@ -26,22 +26,18 @@ public class PlayerController : MonoBehaviour
         {
             rotation = new Vector3(0, Input.GetAxisRaw("Horizontal") * _rotationSpeed * Time.deltaTime, 0);
 
-            Vector3 move = new Vector3(0, 0, Input.GetAxisRaw("Vertical") * Time.deltaTime);
+            Vector3 move = new Vector3(0, 0, Input.GetAxisRaw("Vertical"));
             move = transform.TransformDirection(move);
             speedPlayer = _speedPl * speedMultiplier;
-
-            if (Input.GetAxisRaw("Vertical") != 0)
-                Debug.Log($"Скорость игрока: {speedPlayer}");
-
-            _controller.Move(move * speedPlayer);
+            _controller.Move(move * speedPlayer * Time.deltaTime);
 
             transform.Rotate(rotation);
         }
     }
 
-
     public void SetSpeedMultiplier(float multiplier)
     {
         speedMultiplier = multiplier;
+        Debug.Log($"[PlayerController] Speed multiplier set to: {speedMultiplier}");
     }
 }

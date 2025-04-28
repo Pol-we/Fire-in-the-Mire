@@ -11,7 +11,6 @@ public class WorldTemperatureSystem : MonoBehaviour
     private float nextChangeTime;
     private float lastTemperatureChecked;
 
-
     private void Awake()
     {
         if (Instance == null)
@@ -24,6 +23,7 @@ public class WorldTemperatureSystem : MonoBehaviour
     {
         nextChangeTime = Time.time + changeInterval;
         UpdateTemperatureUI();
+        ApplySpeedModifier();
     }
 
     private void Update()
@@ -39,14 +39,13 @@ public class WorldTemperatureSystem : MonoBehaviour
             ApplySpeedModifier();
             lastTemperatureChecked = currentTemperature;
         }
-
     }
 
     private void ChangeTemperature()
     {
         float delta = Random.Range(-10f, 10f);
         currentTemperature += delta;
-        currentTemperature = Mathf.Clamp(currentTemperature, -50f, 50f); // ограничение, если нужно
+        currentTemperature = Mathf.Clamp(currentTemperature, -50f, 50f);
 
         UpdateTemperatureUI();
         ApplySpeedModifier();
@@ -55,7 +54,7 @@ public class WorldTemperatureSystem : MonoBehaviour
     public void AdjustTemperature(float amount)
     {
         currentTemperature += amount;
-        currentTemperature = Mathf.Clamp(currentTemperature, -50f, 50f); // сохраняем в пределах
+        currentTemperature = Mathf.Clamp(currentTemperature, -50f, 50f);
         UpdateTemperatureUI();
         ApplySpeedModifier();
     }
@@ -72,12 +71,21 @@ public class WorldTemperatureSystem : MonoBehaviour
     {
         if (PlayerController.Instance != null)
         {
-            if (currentTemperature < -29f)
-                PlayerController.Instance.SetSpeedMultiplier(0.15f);
-            else if (currentTemperature > 19f)
-                PlayerController.Instance.SetSpeedMultiplier(88f);
+            if (currentTemperature < -30f)
+            {
+                PlayerController.Instance.SetSpeedMultiplier(0.1f);
+                Debug.Log("[WorldTemperatureSystem] Температура ниже -30°C. Установлена скорость 0.8x.");
+            }
+            else if (currentTemperature > 20f)
+            {
+                PlayerController.Instance.SetSpeedMultiplier(99.2f);
+                Debug.Log("[WorldTemperatureSystem] Температура выше 20°C. Установлена скорость 1.2x.");
+            }
             else
+            {
                 PlayerController.Instance.SetSpeedMultiplier(1f);
+                Debug.Log("[WorldTemperatureSystem] Нормальная температура. Скорость 1x.");
+            }
         }
     }
 }

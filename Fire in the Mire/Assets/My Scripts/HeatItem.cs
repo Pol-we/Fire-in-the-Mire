@@ -15,7 +15,7 @@ public class HeatItem : PickItem
 
         TextManager.Instance?.ShowMessage($"You warmed up. Warmth + {randomHeat}", 2f);
 
-        gameObject.SetActive(false);
+        Destroy(gameObject);
 
         if (_currentActiveItem == this)
             _currentActiveItem = null;
