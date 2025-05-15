@@ -73,13 +73,13 @@ public class WorldTemperatureSystem : MonoBehaviour
         {
             if (currentTemperature < -30f)
             {
-                PlayerController.Instance._speedPl = 1.6f; // 2 * 0.8
-                Debug.Log("[WorldTemperatureSystem] Температура ниже -30°C. Установлена скорость 0.8x.");
+                PlayerController.Instance._speedPl = 1.2f; // 2 * 0.8
+                Debug.Log("[WorldTemperatureSystem] Температура ниже -30°C. Установлена скорость 0.6x.");
             }
             else if (currentTemperature > 20f)
             {
-                PlayerController.Instance._speedPl = 2.4f; // 2 * 1.2
-                Debug.Log("[WorldTemperatureSystem] Температура выше 20°C. Установлена скорость 1.2x.");
+                PlayerController.Instance._speedPl = 2.5f; // 2 * 1.2
+                Debug.Log("[WorldTemperatureSystem] Температура выше 20°C. Установлена скорость 1.25x.");
             }
             else
             {

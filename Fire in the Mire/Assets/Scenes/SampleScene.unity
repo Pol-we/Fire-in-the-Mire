@@ -4605,8 +4605,6 @@ MonoBehaviour:
   _controller: {fileID: 1591962772}
   _speedPl: 2
   _rotationSpeed: 160
-  speedPlayer: 0
-  speedMultiplier: 1
 --- !u!54 &1591962775
 Rigidbody:
   m_ObjectHideFlags: 0
