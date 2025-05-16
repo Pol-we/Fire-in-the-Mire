@@ -5,7 +5,7 @@ public class SaturationSystem : MonoBehaviour
 {
     public static SaturationSystem Instance;
 
-    public float CurrentSaturation { get; private set; } = 100f;
+    public float CurrentSaturation { get; set; } = 100f;
 
     [SerializeField] private Slider saturationSlider;
 
@@ -13,6 +13,9 @@ public class SaturationSystem : MonoBehaviour
     private bool decayStarted = false;
     private float decayInterval = 1f;
     private float nextDecayTime = 0f;
+
+    [SerializeField] public float startDecayTime = 20f;
+
 
     private void Awake()
     {
@@ -31,10 +34,12 @@ public class SaturationSystem : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (!decayStarted && timer >= 60f)
+        if (!decayStarted && timer >= startDecayTime)
         {
+            
             decayStarted = true;
             nextDecayTime = Time.time + decayInterval;
+            HungryText();
         }
 
         if (decayStarted && Time.time >= nextDecayTime)
@@ -49,6 +54,8 @@ public class SaturationSystem : MonoBehaviour
         {
             EndGame();
         }
+
+        LowSaturation();
     }
 
     private void UpdateSaturationSlider()
@@ -81,4 +88,40 @@ public class SaturationSystem : MonoBehaviour
         TextManager.Instance?.ShowMessage("You are exhausted. Game over.");
         Time.timeScale = 0;
     }
+
+    private void HungryText()
+    {
+        //int randText = Random.Range(0, 4);
+        int randText = 0;
+
+        switch (randText)
+        {
+            case 0: TextManager.Instance?.ShowMessage("I need to find something to eat...");
+                break;
+            case 1:
+                TextManager.Instance?.ShowMessage("Eat...");
+                break;
+            case 2:
+                TextManager.Instance?.ShowMessage("Eat. Eat. Eat.");
+                break;
+            case 3:
+                TextManager.Instance?.ShowMessage("How hungry...");
+                break;
+
+        }
+    }
+
+    private void LowSaturation()
+    {
+        if ( CurrentSaturation == 50 || CurrentSaturation == 10)
+        {
+            HungryText();
+        }
+    }
+
+    public float GetSaturation()
+    {
+        return CurrentSaturation;
+    }
+
 }

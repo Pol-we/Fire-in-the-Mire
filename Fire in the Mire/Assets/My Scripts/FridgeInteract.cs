@@ -42,19 +42,33 @@ public class FridgeInteract : MonoBehaviour
 
     private void Update()
     {
+
+
         foodItemsCount = foodItems.Length;
 
         if (playerInRange && Keyboard.current.eKey.wasPressedThisFrame)
         {
             if (currentFoodIndex < foodItems.Length)
             {
-                GameObject food = foodItems[currentFoodIndex];
-                EatItem eatItem = food.GetComponent<EatItem>();
-                if (eatItem != null)
+                float currentSat = SaturationSystem.Instance?.CurrentSaturation ?? 0f;
+
+                if (currentSat >= 90f)
                 {
-                    eatItem.EatFromFridge(); // специальный метод для холодильника
+                    TextManager.Instance?.ShowMessage("I'm not hungry.");
+                    return;
                 }
-                currentFoodIndex++;
+                else
+                {
+
+
+                    GameObject food = foodItems[currentFoodIndex];
+                    EatItem eatItem = food.GetComponent<EatItem>();
+                    if (eatItem != null)
+                    {
+                        eatItem.EatFromFridge(); // специальный метод для холодильника
+                    }
+                    currentFoodIndex++;
+                }
             }
             else
             {

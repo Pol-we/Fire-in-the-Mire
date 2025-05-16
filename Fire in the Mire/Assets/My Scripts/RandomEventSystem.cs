@@ -7,6 +7,7 @@ public class RandomEventSystem : MonoBehaviour
     private bool eventsStarted = false;
     private float nextEventTime = 0f;
     private float eventInterval = 35f;
+    [SerializeField] public float startTimeEvent = 60f;
 
     public RawImage eventImage;
     [SerializeField] private FridgeInteract fridge;
@@ -31,7 +32,7 @@ public class RandomEventSystem : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (!eventsStarted && timer >= 90)
+        if (!eventsStarted && timer >= startTimeEvent)
         {
             eventsStarted = true;
             nextEventTime = Time.time + eventInterval;

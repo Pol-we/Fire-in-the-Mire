@@ -10,7 +10,7 @@ public class CaminZone : MonoBehaviour
             if (heatSystem != null)
             {
                 heatSystem.nearCamin = true;
-                TextManager.Instance?.ShowMessage($"Warmth by the fireplace: {heatSystem.GetHeat():0.0}%");
+                TextManager.Instance?.ShowMessage($"Warmth by the fireplace: {heatSystem.GetHeat():0}%");
             }
         }
     }

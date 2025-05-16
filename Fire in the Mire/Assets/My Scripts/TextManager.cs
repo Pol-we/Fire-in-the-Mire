@@ -47,6 +47,7 @@ public class TextManager : MonoBehaviour
         {
             Debug.LogError("TextManager: Не присвоен prefab текста (tutorialTextPrefab).");
         }
+
     }
 
     private void Update()

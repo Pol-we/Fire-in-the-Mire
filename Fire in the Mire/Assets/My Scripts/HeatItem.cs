@@ -4,20 +4,34 @@ public class HeatItem : PickItem
 {
     public AudioClip heatSound;
     public int randomHeat;
+
+
+    //public HeatSystem heatSystem;
     public override void Interact()
     {
-        randomHeat = Random.Range(5, 36);
-        TextManager.Instance?.HideMessage();
+        float currentSat = HeatSystem.Instance?.GetHeat() ?? 0;
 
-        HeatSystem.Instance?.AddHeat(randomHeat);
+        if (currentSat >= 90)
+        {
+            TextManager.Instance?.ShowMessage("It's warm now, I don't need it.");
+            return;
+        }
+        else
+        {
+            if (_currentActiveItem == this)
+                _currentActiveItem = null;
 
-        AudioSource.PlayClipAtPoint(heatSound, transform.position);
+            randomHeat = Random.Range(5, 36);
+            TextManager.Instance?.HideMessage();
 
-        TextManager.Instance?.ShowMessage($"You warmed up. Warmth + {randomHeat}", 2f);
+            HeatSystem.Instance?.AddHeat(randomHeat);
 
-        Destroy(gameObject);
+            AudioSource.PlayClipAtPoint(heatSound, transform.position);
 
-        if (_currentActiveItem == this)
-            _currentActiveItem = null;
+            TextManager.Instance?.ShowMessage($"You warmed up. Warmth + {randomHeat}", 2f);
+
+            Destroy(gameObject);
+
+        }
     }
-}
+}   

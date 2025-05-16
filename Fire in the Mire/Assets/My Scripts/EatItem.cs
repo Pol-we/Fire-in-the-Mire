@@ -4,9 +4,20 @@ public class EatItem : PickItem
 {
     public AudioClip eatSound;
     public int randomSaturation;
+
     public override void Interact()
     {
-        Eat();
+        float currentSat = SaturationSystem.Instance?.CurrentSaturation ?? 0f;
+
+        if (currentSat >= 90f)
+        {
+            TextManager.Instance?.ShowMessage("I'm not hungry.");
+            return;
+        }
+        else
+        {
+            Eat();
+        }
     }
 
     // Используется, если еда берётся из холодильника
@@ -18,7 +29,6 @@ public class EatItem : PickItem
 
     private void Eat()
     {
-        gameObject.SetActive(false);
 
         if (_currentActiveItem == this)
             _currentActiveItem = null;
@@ -30,6 +40,8 @@ public class EatItem : PickItem
         AudioSource.PlayClipAtPoint(eatSound, transform.position);
         SaturationSystem.Instance?.AddSaturation(randomSaturation);
         TextManager.Instance?.ShowMessage($"You ate. Satiety + {randomSaturation}", 2f);
+        
+        gameObject.SetActive(false);
 
     }
 }

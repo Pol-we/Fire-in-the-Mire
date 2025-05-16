@@ -433,6 +433,7 @@
 "Assets/My Scripts/RandomE.cs"
 "Assets/My Scripts/RandomEventSystem.cs"
 "Assets/My Scripts/SaturationSystem.cs"
+"Assets/My Scripts/StartTutorial.cs"
 "Assets/My Scripts/TextManager.cs"
 "Assets/My Scripts/TipsManager.cs"
 "Assets/My Scripts/TreeRespawner.cs"

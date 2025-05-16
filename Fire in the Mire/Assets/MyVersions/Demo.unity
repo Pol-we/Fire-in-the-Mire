@@ -336,6 +336,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   saturationSlider: {fileID: 1461894480}
+  startDecayTime: 30
 --- !u!1001 &49289103
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -745,6 +746,10 @@ PrefabInstance:
       propertyPath: eatSound
       value: 
       objectReference: {fileID: 8300000, guid: bf382d8a50eff014680cf14d35e69f3c, type: 3}
+    - target: {fileID: 3676383054394126344, guid: ac64ac3bc7de3294e8b48c2465b89a4d, type: 3}
+      propertyPath: saturationSystem
+      value: 
+      objectReference: {fileID: 48188650}
     - target: {fileID: 6952564239884961351, guid: ac64ac3bc7de3294e8b48c2465b89a4d, type: 3}
       propertyPath: m_Name
       value: Apple
@@ -789,7 +794,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4403320214277744638, guid: ac64ac3bc7de3294e8b48c2465b89a4d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -835,6 +841,10 @@ PrefabInstance:
       propertyPath: eatSound
       value: 
       objectReference: {fileID: 8300000, guid: bf382d8a50eff014680cf14d35e69f3c, type: 3}
+    - target: {fileID: 3676383054394126344, guid: b2ff4cb989317df418d4306afeb7e5e8, type: 3}
+      propertyPath: saturationSystem
+      value: 
+      objectReference: {fileID: 48188650}
     - target: {fileID: 6952564239884961351, guid: b2ff4cb989317df418d4306afeb7e5e8, type: 3}
       propertyPath: m_Name
       value: Apple2
@@ -879,7 +889,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4403320214277744638, guid: b2ff4cb989317df418d4306afeb7e5e8, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7725829484432923901, guid: b2ff4cb989317df418d4306afeb7e5e8, type: 3}
@@ -1044,9 +1055,9 @@ PrefabInstance:
       value: Candle 1
       objectReference: {fileID: 0}
     - target: {fileID: 5541156935359179942, guid: 48839cd65091d884e80f1e31234be1fe, type: 3}
-      propertyPath: heatSound
+      propertyPath: heatSystem
       value: 
-      objectReference: {fileID: 8300000, guid: 00a4b26cf5f55d84a9b4fad14a6465ad, type: 3}
+      objectReference: {fileID: 1686482664}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4896,6 +4907,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1686482665}
   - component: {fileID: 1686482664}
+  - component: {fileID: 1686482666}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4916,6 +4928,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nearCamin: 0
+  startDecayTime: 45
 --- !u!4 &1686482665
 Transform:
   m_ObjectHideFlags: 0
@@ -4931,6 +4944,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1686482666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1686482663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acf4426ad80e4234aafd73c64a7e846c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1724072457
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5524,6 +5549,10 @@ PrefabInstance:
       propertyPath: eatSound
       value: 
       objectReference: {fileID: 8300000, guid: bf382d8a50eff014680cf14d35e69f3c, type: 3}
+    - target: {fileID: 3676383054394126344, guid: b2ff4cb989317df418d4306afeb7e5e8, type: 3}
+      propertyPath: saturationSystem
+      value: 
+      objectReference: {fileID: 48188650}
     - target: {fileID: 6952564239884961351, guid: b2ff4cb989317df418d4306afeb7e5e8, type: 3}
       propertyPath: m_Name
       value: Apple3
@@ -5572,7 +5601,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4403320214277744638, guid: b2ff4cb989317df418d4306afeb7e5e8, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -5774,6 +5804,10 @@ PrefabInstance:
       propertyPath: heatSound
       value: 
       objectReference: {fileID: 8300000, guid: 00a4b26cf5f55d84a9b4fad14a6465ad, type: 3}
+    - target: {fileID: 1554069180476661701, guid: 437b0cd00f81f814a8f18719856a41b6, type: 3}
+      propertyPath: heatSystem
+      value: 
+      objectReference: {fileID: 1686482664}
     - target: {fileID: 3749629715715856909, guid: 437b0cd00f81f814a8f18719856a41b6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.706
@@ -5818,7 +5852,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Candle
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 308300700057856005, guid: 437b0cd00f81f814a8f18719856a41b6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -5935,6 +5970,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WoodLog (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6330188199210506305, guid: a1841f337a5094a40b09b5ccd086f287, type: 3}
+      propertyPath: heatSystem
+      value: 
+      objectReference: {fileID: 1686482664}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5994,6 +6033,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8961142980003437816, guid: 2a6defed12ca8f04bba3940215648594, type: 3}
+    - {fileID: 1380026589136156507, guid: 2a6defed12ca8f04bba3940215648594, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
